@@ -44,6 +44,9 @@ ADD run.sh /opt/wrapper.sh
 RUN chmod a+x /opt/wrapper.sh
 WORKDIR /opt
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install openssh-server -y
+EXPOSE 22
+
 RUN echo -ne "\n\nUruchom za pomocą ./edeklaracje.sh\n\n"
 
 ENTRYPOINT ["/opt/wrapper.sh"]
