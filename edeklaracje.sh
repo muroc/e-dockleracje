@@ -84,9 +84,7 @@ fi
 # jedziemy
 echo -ne "\nUruchamiam kontener $CONTAINER_NAME...\n"
 
-# http://stackoverflow.com/questions/22944631/how-to-get-the-ip-address-of-the-docker-host-from-inside-a-docker-container
-HOST_IP_DEV=`/sbin/ip route|awk '/default/ { print $5 }'`
-HOST_IP=`/sbin/ip -4 addr show $HOST_IP_DEV | grep -Po 'inet \K[\d.]+'`
+HOST_IP=`ip -o -4 addr list docker0 | egrep -o "[0-9\.]{7,}"`
 docker run --rm -ti \
   -v "$XSOCK":"$XSOCK" \
   -v "$HOME/.appdata":"$HOME/.appdata" \
